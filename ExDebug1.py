@@ -41,32 +41,63 @@ def environnement_optimal(temp, poussiere, humidite):
     else:
         return "Environnement non optimal"
 
-
 if __name__ == "__main__":
-    #print(environnement_optimal(25, "faible", 40))
-
     #créer 3 listes (temp, pousiere, humidité)
-    #faire une boucle pour 3 ordinateurs
+    #faire une boucle pour chaque ordinateur
         #demander temp, poussiere, humidite
         #mettre les valeurs dans leurs listes
 
-    # listes
+    #listes
     liste_temp = []
     liste_poussiere = []
     liste_humidite = []
 
-    nb_ordinateurs = 3
+    #demander le nombre d'ordinateurs
+    nb_ordinateurs = 0
+    try:
+        while True:
+            nb_ordinateurs = int(input("Nombre d'ordinateurs : "))
+            break
+    except ValueError:
+        print("Erreur: veuillez entrer un nombre.")
+
+    #initialiser valeurs
+    temp = 0
+    humidite = 0
+
+    #entrée de données (temp/poussiere/humidite) + gestion d'exceptions
     for i in range(nb_ordinateurs):
-        #entrée de données
-        temp = float(input("Entrez la température : "))
-        poussiere = input("Entrez le niveau de poussière (faible, moyen, élevé) : ")
-        humidite = float(input("Entrez l'humidité : "))
-        print("-" * 30)
+        while True: #seulement accepter un nombre
+            try:
+                temp = float(input("Entrez la température : "))
+                break
+            except ValueError:
+                print("Erreur: veuillez entrer un nombre.")
+        while True: #seulement accepter l'un des trois choix. Sinon, recommencer
+            poussiere = (str(input("Entrez le niveau de poussière (faible, moyen, élevé) : ")))
+            poussiere = poussiere.lower()
+            if poussiere == "faible" or "moyen" or "élevé":
+                break
+            else: print("Erreur: veuillez choisir l'une des trois options.")
+        while True:
+            try:
+                humidite = float(input("Entrez l'humidité : "))
+                break
+            except ValueError:
+                print("Erreur: veuillez entrer un nombre.")
+        print("-"*30)
 
         #ajouter valeurs aux listes
         liste_temp.append(temp)
         liste_poussiere.append(poussiere)
         liste_humidite.append(humidite)
 
-    #TODO: pour les 3 ordis
-        #TODO: utiliser la fonction et afficher le résultat
+    #pour chaque ordi : utiliser la fonction et afficher le résultat
+    indice = 0
+    no_ordi = 1 #numero de l'ordi
+    for i in range(nb_ordinateurs):
+        print("*" * 30)
+        print(f"** Ordinateur {no_ordi} :",
+              environnement_optimal(liste_temp[indice], liste_poussiere[indice], liste_humidite[indice]))
+        indice += 1
+        no_ordi += 1
